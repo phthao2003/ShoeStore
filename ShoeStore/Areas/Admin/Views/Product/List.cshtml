@@ -24,6 +24,7 @@
                             <th>Status</th>
                             <th>Stock</th>
                             <th>Price</th>
+                            <th>Creation time</th>
                             <th>Setting</th>
                         </tr>
 
@@ -70,6 +71,8 @@
                                 }
 
                                 <td>@product.Price.ToString("#,###")</td>
+                                
+                                <td>@product.CreationTime</td>
 
                                 <td>
                                     <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit">
