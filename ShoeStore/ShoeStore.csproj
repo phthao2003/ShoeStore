@@ -22,4 +22,8 @@
       <ProjectReference Include="..\ShoeStore.Data\ShoeStore.Data.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Areas\Admin\Views\Product\Index.cshtml" />
+    </ItemGroup>
+
 </Project>
