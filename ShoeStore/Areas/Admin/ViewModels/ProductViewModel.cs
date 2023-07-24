@@ -1,8 +1,8 @@
 ﻿using ShoeStore.Shared;
 
-namespace ShoeStore.Data.Entities;
+namespace ShoeStore.Areas.Admin.ViewModels;
 
-public class Product
+public class ProductViewModel
 {
     public Guid Id { get; set; }
     public string Code { get; set; }
@@ -18,8 +18,4 @@ public class Product
 
     public DateTime CreationTime { get; set; }
     public DateTime? LastModificationTime { get; set; }
-
-    public List<ProductCategory> ProductCategories { get; set; }
-
-    public List<ProductImage> ProductImages { get; set; }
 }

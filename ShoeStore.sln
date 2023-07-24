@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore", "ShoeStore\Shoe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore.Data", "ShoeStore.Data\ShoeStore.Data.csproj", "{B8122B1F-9F11-43CA-B1D5-5DDF7449D073}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore.Shared", "ShoeStore.Shared\ShoeStore.Shared.csproj", "{D52CE220-01E1-451E-BB1C-23ACAA0AB5AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B8122B1F-9F11-43CA-B1D5-5DDF7449D073}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8122B1F-9F11-43CA-B1D5-5DDF7449D073}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8122B1F-9F11-43CA-B1D5-5DDF7449D073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D52CE220-01E1-451E-BB1C-23ACAA0AB5AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D52CE220-01E1-451E-BB1C-23ACAA0AB5AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D52CE220-01E1-451E-BB1C-23ACAA0AB5AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D52CE220-01E1-451E-BB1C-23ACAA0AB5AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -31,5 +31,20 @@ public class ProductEntityTypeConfiguration : IEntityTypeConfiguration<Product>
 
         builder.Property(x => x.Slug)
             .HasMaxLength(500);
+
+        builder.Property(x => x.CreationTime)
+            .IsRequired();
+
+        builder.Property(x => x.LastModificationTime);
+
+        builder.Property(x => x.Status)
+            .IsRequired()
+            .HasConversion<string>()
+            .HasMaxLength(50);
+
+        builder.Property(x => x.InventoryStatus)
+            .IsRequired()
+            .HasConversion<string>()
+            .HasMaxLength(50);
     }
 }
