@@ -1,5 +1,9 @@
-﻿@{
+﻿@using ShoeStore.Data.Entities
+@using ShoeStore.Shared
+@{
     Layout = "_AdminLayout";
+    string action = ViewBag?.Action;
+    Product product = ViewBag?.Product;
 }
 
 <div class="single-product-tab-area mg-b-30">
@@ -24,36 +28,42 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="review-content-section">
+                    <input type="hidden" name="Id" value='@(action == "Edit" ? product.Id.ToString() : Guid.Empty.ToString())'/>
                     <div class="input-group mg-b-pro-edt">
                         <span class="input-group-addon">
                             <i class="icon nalika-edit" aria-hidden="true"></i>
                         </span>
-                        <input type="text" class="form-control" placeholder="Product name" name="Name">
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Product name"
+                               name="Name"
+                               value="@product?.Name"
+                               required="required">
                     </div>
                     <div class="input-group mg-b-pro-edt">
                         <span class="input-group-addon">
                             <i class="fa fa-usd" aria-hidden="true"></i>
                         </span>
-                        <input type="text" class="form-control" placeholder="Price" name="Price">
+                        <input type="text" class="form-control" placeholder="Price" value="@product?.Price" name="Price" required="required">
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="review-content-section">
                     <div class="mg-b-pro-edt">
-                        <select name="Status" class="form-control pro-edt-select form-control-primary">
+                        <select name="Status" class="form-control pro-edt-select form-control-primary" required="required">
                             <option value="opt1">Status</option>
-                            <option value="1">Active</option>
-                            <option value="2">Inactive</option>
+                            <option value="1" selected="@(product?.Status == ProductStatusEnum.Active ? "selected" : "")">Active</option>
+                            <option value="2" selected="@(product?.Status == ProductStatusEnum.Inactive ? "selected" : "")">Inactive</option>
                         </select>
                     </div>
                 </div>
                 <div class="review-content-section">
                     <div class="mg-b-pro-edt">
-                        <select name="InventoryStatus" class="form-control pro-edt-select form-control-primary">
+                        <select name="InventoryStatus" class="form-control pro-edt-select form-control-primary" required="required">
                             <option value="opt1">Inventory status</option>
-                            <option value="1">InStock</option>
-                            <option value="2">OutOfStock</option>
+                            <option value="1" selected="@(product?.InventoryStatus == InventoryStatus.InStock ? "selected" : "")">InStock</option>
+                            <option value="2" selected="@(product?.InventoryStatus == InventoryStatus.OutOfStock ? "selected" : "")">OutOfStock</option>
                         </select>
                     </div>
                 </div>
@@ -62,7 +72,7 @@
                         <span class="input-group-addon">
                             <i class="icon nalika-user" aria-hidden="true"></i>
                         </span>
-                        <input type="text" class="form-control" placeholder="Description">
+                        <input type="text" class="form-control" placeholder="Description" value="@product?.Description">
                     </div>
                 </div>
             </div>

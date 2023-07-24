@@ -29,24 +29,44 @@ public class ProductController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateProductViewModel product)
     {
-        var rn = new Random();
-        var random = rn.Next(1000, 9999);
-        var newProduct = new Product
+        if (product.Id is null || product.Id == Guid.Empty)
         {
-            Name = product.Name,
-            Price = product.Price,
-            Description = product.Description,
-            NameNormalization = product.Name.Normalize(),
-            Id = Guid.NewGuid(),
-            Code = random.ToString().PadLeft(8, '0'),
-            Slug = product.Name.Normalize().Replace(" ", "-"),
-            CreationTime = DateTime.Now,
-            InventoryStatus = product.InventoryStatus,
-            Status = product.Status
-        };
+            var rn = new Random();
+            var random = rn.Next(1000, 9999);
+            var newProduct = new Product
+            {
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+                NameNormalization = product.Name.Normalize(),
+                Id = Guid.NewGuid(),
+                Code = random.ToString().PadLeft(8, '0'),
+                Slug = product.Name.Normalize().Replace(" ", "-"),
+                CreationTime = DateTime.Now,
+                InventoryStatus = product.InventoryStatus,
+                Status = product.Status
+            };
 
-        await _context.Products.AddAsync(newProduct);
-        await _context.SaveChangesAsync();
+            await _context.Products.AddAsync(newProduct);
+            await _context.SaveChangesAsync();
+        }
+        else
+        {
+            var productToUpdate = await _context.Products.FindAsync(product.Id);
+
+            if (productToUpdate != null)
+            {
+                productToUpdate.Name = product.Name;
+                productToUpdate.Price = product.Price;
+                productToUpdate.Description = product.Description;
+                productToUpdate.NameNormalization = product.Name.Normalize();
+                productToUpdate.Slug = product.Name.Normalize().Replace(" ", "-");
+                productToUpdate.LastModificationTime = DateTime.Now;
+                productToUpdate.InventoryStatus = product.InventoryStatus;
+                productToUpdate.Status = product.Status;
+                await _context.SaveChangesAsync();
+            }
+        }
 
         return RedirectToAction("Index");
     }
@@ -67,9 +87,63 @@ public class ProductController : Controller
             Price = x.Price,
             Slug = x.Slug
         }).ToListAsync();
-        
+
         ViewBag.Products = products;
-        
+
         return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var product = await _context.Products.FindAsync(id);
+
+        if (product != null)
+        {
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+        }
+
+        return RedirectToAction("List");
+    }
+
+    public async Task<IActionResult> Edit(Guid id)
+    {
+        ViewBag.Action = "Edit";
+        var product = await _context.Products.FindAsync(id);
+
+        if (product != null)
+        {
+            ViewBag.Product = product;
+            return View("Create");
+        }
+
+        return RedirectToAction("List");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(Guid id, CreateProductViewModel productViewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            return RedirectToAction("List");
+        }
+        
+        var productToUpdate = await _context.Products.FindAsync(id);
+
+        if (productToUpdate != null)
+        {
+            productToUpdate.Name = productViewModel.Name;
+            productToUpdate.Price = productViewModel.Price;
+            productToUpdate.Description = productViewModel.Description;
+            productToUpdate.NameNormalization = productViewModel.Name.Normalize();
+            productToUpdate.Slug = productViewModel.Name.Normalize().Replace(" ", "-");
+            productToUpdate.LastModificationTime = DateTime.Now;
+            productToUpdate.InventoryStatus = productViewModel.InventoryStatus;
+            productToUpdate.Status = productViewModel.Status;
+            await _context.SaveChangesAsync();
+        }
+        
+        return RedirectToAction("List");
     }
 }

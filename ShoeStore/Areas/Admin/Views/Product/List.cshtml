@@ -5,112 +5,114 @@
     List<ProductViewModel> products = ViewBag.Products;
 }
 
-
-<div class="product-status mg-b-30">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="product-status-wrap">
-                    <h4>Products List</h4>
-                    <div class="add-product">
-                        <a href="product-edit.html">Add Product</a>
-                    </div>
-                    <table>
-                        <tbody>
-                        <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Status</th>
-                            <th>Stock</th>
-                            <th>Price</th>
-                            <th>Creation time</th>
-                            <th>Last modification time</th>
-                            <th>Setting</th>
-                        </tr>
-
-                        @foreach (var product in products)
-                        {
+<form method="post">
+    <div class="product-status mg-b-30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="product-status-wrap">
+                        <h4>Products List</h4>
+                        <div class="add-product">
+                            <a href="@Url.Action("Create", "Product")">Add Product</a>
+                        </div>
+                        <table>
+                            <tbody>
                             <tr>
-                                <td>
-                                    <img src="img/new-product/5-small.jpg" alt="">
-                                </td>
-                                <td>@product.Name</td>
-                                <td>@product.Code</td>
-                                @switch (product.Status)
-                                {
-                                    case ProductStatusEnum.Active:
-                                    {
-                                        <td>
-                                            <button class="pd-setting">Active</button>
-                                        </td>
-                                        break;
-                                    }
-                                    case ProductStatusEnum.Inactive:
-                                    default:
-                                    {
-                                        <td>
-                                            <button class="ds-setting">Active</button>
-                                        </td>
-                                        break;
-                                    }
-                                }
-
-                                @switch (product.InventoryStatus)
-                                {
-                                    case InventoryStatus.InStock:
-                                    {
-                                        <td>In Stock</td>
-                                        break;
-                                    }
-                                    case InventoryStatus.OutOfStock:
-                                    default:
-                                    {
-                                        <td>Out Of Stock</td>
-                                        break;
-                                    }
-                                }
-
-                                <td>@product.Price.ToString("#,###")</td>
-                                
-                                <td>@product.CreationTime</td>
-                                
-                                <td>@product.LastModificationTime</td>
-
-                                <td>
-                                    <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Edit">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                    </button>
-                                    <button data-toggle="tooltip" title="" class="pd-setting-ed" data-original-title="Trash">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                    </button>
-                                </td>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Status</th>
+                                <th>Stock</th>
+                                <th>Price</th>
+                                <th>Creation time</th>
+                                <th>Last modification time</th>
+                                <th>Setting</th>
                             </tr>
-                        }
 
-                        </tbody>
-                    </table>
-                    <div class="custom-pagination">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#">Previous</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
+                            @foreach (var product in products)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="img/new-product/5-small.jpg" alt="">
+                                    </td>
+                                    <td>@product.Name</td>
+                                    <td>@product.Code</td>
+                                    @switch (product.Status)
+                                    {
+                                        case ProductStatusEnum.Active:
+                                        {
+                                            <td>
+                                                <button class="pd-setting">Active</button>
+                                            </td>
+                                            break;
+                                        }
+                                        case ProductStatusEnum.Inactive:
+                                        default:
+                                        {
+                                            <td>
+                                                <button class="ds-setting">Inactive</button>
+                                            </td>
+                                            break;
+                                        }
+                                    }
+
+                                    @switch (product.InventoryStatus)
+                                    {
+                                        case InventoryStatus.InStock:
+                                        {
+                                            <td>In Stock</td>
+                                            break;
+                                        }
+                                        case InventoryStatus.OutOfStock:
+                                        default:
+                                        {
+                                            <td>Out Of Stock</td>
+                                            break;
+                                        }
+                                    }
+
+                                    <td>@product.Price.ToString("#,###")</td>
+
+                                    <td>@product.CreationTime</td>
+
+                                    <td>@product.LastModificationTime</td>
+
+                                    <td>
+                                        <a class="ps-setting" href="@Url.Action("Edit", "Product", new { product.Id })" style="margin-right: 2px;">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin: auto"></i>
+                                        </a>
+
+                                        <button class="ds-setting" type="submit" formaction='@Url.Action("Delete", "Product", new { Id = product.Id })'>
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+
+                            </tbody>
+                        </table>
+                        <div class="custom-pagination">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Previous</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
