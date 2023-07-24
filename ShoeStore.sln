@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore", "ShoeStore\ShoeStore.csproj", "{2E27169F-8A7C-4193-9C03-0E65760DA25D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore.Data", "ShoeStore.Data\ShoeStore.Data.csproj", "{B8122B1F-9F11-43CA-B1D5-5DDF7449D073}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{2E27169F-8A7C-4193-9C03-0E65760DA25D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E27169F-8A7C-4193-9C03-0E65760DA25D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E27169F-8A7C-4193-9C03-0E65760DA25D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8122B1F-9F11-43CA-B1D5-5DDF7449D073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8122B1F-9F11-43CA-B1D5-5DDF7449D073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8122B1F-9F11-43CA-B1D5-5DDF7449D073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8122B1F-9F11-43CA-B1D5-5DDF7449D073}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
